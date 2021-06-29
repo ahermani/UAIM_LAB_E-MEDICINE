@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+    rooms-data:
+        image: ahermani/uaim_lab_examinationrooms:latest
+        ports:
+            - "5004:80"
+    selector-app:
+        image: ahermani/uaim_lab_examinationroomsselector:latest
+        ports:
+            - "5005:80"
+        depends_on:
+            - rooms-data   
+        environment:
+            - Data__Url=http://rooms-data

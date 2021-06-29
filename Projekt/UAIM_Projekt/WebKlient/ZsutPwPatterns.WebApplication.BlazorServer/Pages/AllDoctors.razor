@@ -1,0 +1,31 @@
+﻿@page "/doctors"
+@inject IController controller
+@inject IModel model
+
+<h5>Click to search for doctors</h5>
+
+
+<RadzenButton Icon="search" Text="Search" Click=@controller.SearchAllDoctorsAsync Style="width: 160px" />
+
+<h5 style="margin-top: 16px">Doctors</h5>
+
+<RadzenGrid Count="@model.AllDoctorsList.Count" Data="@model.AllDoctorsList" TItem=DoctorDto RowSelect="@SelectedDoctorChanged">
+    <Columns>
+        <RadzenGridColumn TItem="DoctorDto" Property="Name" Title="Name" />
+        <RadzenGridColumn TItem="DoctorDto" Property="Surname" Title="Surname" />
+        <RadzenGridColumn TItem="DoctorDto" Property="PhoneNumber" Title="Phone Number" />
+        <RadzenGridColumn TItem="DoctorDto" Property="Room" Title="Room" />
+    </Columns>
+</RadzenGrid>
+
+<RadzenMenu>
+    <RadzenMenuItem Text="View" Icon="pageview" Path="/doctors/view" />
+    <RadzenMenuItem Text="Appointments" Icon="list" Path="/doctors/appointments" />
+</RadzenMenu>
+
+@code {
+    private void SelectedDoctorChanged(DoctorDto doctor)
+    {
+        model.SelectedDoctor = doctor;
+    }
+} 

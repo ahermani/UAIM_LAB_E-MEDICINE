@@ -1,0 +1,48 @@
+﻿@page "/patient/edit"
+@inject IController controller
+@inject IModel model
+<h5>Change your personal data</h5>
+<br>
+<br>
+@if (model.EditedPatient != null)
+{
+    <div class="row">
+        <div class="col-xl-6">
+            <RadzenLabel Text="Name" Style="width: 160px" />
+            <RadzenTextBox Name="name" @bind-Value=@model.EditedPatient.Name Style="width: 160px" /><br>
+            <RadzenLabel Text="Surname" Style="width: 160px"/>
+            <RadzenTextBox Name="surname" @bind-Value=@model.EditedPatient.Surname Style="width: 160px" /><br>
+            <RadzenLabel Text="Phone Number"Style="width: 160px" />
+            <RadzenTextBox Name="phoneNumber" @bind-Value=@model.EditedPatient.PhoneNumber Style="width: 160px" /><br>
+            <RadzenLabel Text="Pesel"Style="width: 160px" />
+            <RadzenTextBox Name="pesel" @bind-Value=@model.EditedPatient.Pesel Style="width: 160px" /><br>
+            <RadzenLabel Text="Birthday"Style="width: 160px" />
+            <RadzenDatePicker Name="birthday" @bind-Value=@model.EditedPatient.Birthday Style="width: 180px" /><br>
+            <RadzenLabel Text="RegistrationDate" Style="width: 160px"/>
+            <RadzenDatePicker Name="registrationDate" @bind-Value=@model.EditedPatient.RegistrationDate Style="width: 180px" /><br>
+            <RadzenLabel Text="Gender" Style="width: 160px"/>
+            <RadzenDropDown @bind-Value=@model.EditedPatient.Gender Data="@genders" Style="width: 160px">
+            </RadzenDropDown><br>
+            <RadzenLabel Text="Blood Type" Style="width: 160px"/>
+            <RadzenDropDown @bind-Value=@model.EditedPatient.BloodType Data="@bloods" Style="width: 160px">
+            </RadzenDropDown><br>
+            <RadzenLabel Text="Active" Style="width: 160px"/>
+            <RadzenDropDown @bind-Value=@model.EditedPatient.IsActive Data="@active" Style="width: 160px">
+            </RadzenDropDown><br>
+        </div>
+    </div>
+
+}
+
+<RadzenButton Icon="submit" Text="Submit" Click=@controller.UpdatePatientAsync Style="width: 160px" />
+
+<RadzenMenu>
+    <RadzenMenuItem Text="View" Icon="view" Path="/patient" />
+    <RadzenMenuItem Text="Appointments" Icon="list" Path="/patient/appointments" />
+</RadzenMenu>
+
+@code{
+    Array genders = Enum.GetValues(typeof(Gender));
+    Array bloods = Enum.GetValues(typeof(Blood));
+    List<Boolean> active = new List<Boolean> { true, false };
+}

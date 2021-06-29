@@ -1,0 +1,51 @@
+﻿@page "/patient/appointments/view"
+@inject IController controller
+@inject IModel model
+<h5>Appointment Detail</h5>
+<br>
+@if (model.SelectedAppointment != null)
+{
+    <RadzenLabel Text="Creator" Style="width: 160px" />
+    <RadzenTextBox Name="Creator" @bind-Value=@creator Style="width: 160px" ReadOnly="true" />
+    <br>
+    <RadzenLabel Text="State" Style="width: 160px" />
+    <RadzenTextBox Name="State" @bind-Value=@state Style="width: 160px" ReadOnly="true" />
+    <br>
+    <RadzenLabel Text="CreationDate" Style="width: 160px" />
+    <RadzenTextBox Name="CreationDate" @bind-Value=@creationDate Style="width: 160px" ReadOnly="true" />
+    <br>
+    <RadzenLabel Text="AppointmentDate" Style="width: 160px" />
+    <RadzenTextBox Name="AppointmentDate" @bind-Value=@appointmentDate Style="width: 160px" ReadOnly="true" />
+    <br>
+    <RadzenLabel Text="Patient" Style="width: 160px" />
+    <RadzenTextBox Name="Patient" @bind-Value=@patient Style="width: 160px" ReadOnly="true" />
+    <br>
+    <RadzenLabel Text="Doctor" Style="width: 160px" />
+    <RadzenTextBox Name="Doctor" @bind-Value=@doctor Style="width: 160px" ReadOnly="true" />
+    <br>
+    <RadzenLabel Text="Treatments" Style="width: 160px" />
+    <RadzenTextBox Name="Treatments" @bind-Value=@treatments Style="width: 160px" ReadOnly="true" />
+    <br>
+    <RadzenLabel Text="Note" Style="width: 160px" />
+    <RadzenTextBox Name="Note" @bind-Value=@note Style="width: 160px" ReadOnly="true" />
+    <br>
+}
+<RadzenMenu>
+    <RadzenMenuItem Text="Edit" Icon="edit" Path="/patient/appointments/edit" />
+    <RadzenMenuItem Text="Appointments" Icon="list" Path="/patient/appointments" />
+</RadzenMenu>
+
+@code {
+    String doctor, patient, treatments, note, appointmentDate, creationDate, creator, state;
+    override protected void OnInitialized()
+    {
+        doctor = "";
+        patient = "";
+        creator = "";
+        note = model.SelectedAppointment.Note.ToString();
+        state = model.SelectedAppointment.State.ToString();
+        creationDate = model.SelectedAppointment.CreationDate.ToString();
+        appointmentDate = model.SelectedAppointment.AppointmentDate.ToString();
+        treatments = string.Join(", ", model.SelectedAppointment.TreatmentIds);
+    }
+}

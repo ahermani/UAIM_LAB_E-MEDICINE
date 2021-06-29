@@ -1,0 +1,63 @@
+﻿@page "/patient"
+@inject IController controller
+@inject IModel model
+<h5>Click to view your data</h5>
+<RadzenButton Icon="view" Text="View" Click=@View Style="width: 160px" />
+<br>
+<br>
+@if (model.Patient != null)
+{
+    <RadzenLabel Text="Name" Style="width: 160px" />
+    <RadzenTextBox Name="name" @bind-Value=@model.Patient.Name Style="width: 160px" ReadOnly="true" />
+    <br>
+    <RadzenLabel Text="Surname" Style="width: 160px" />
+    <RadzenTextBox Name="surname" @bind-Value=@model.Patient.Surname Style="width: 160px" ReadOnly="true" />
+    <br>
+    <RadzenLabel Text="Birthday" Style="width: 160px" />
+    <RadzenTextBox Name="birthday" @bind-Value=@birthday Style="width: 160px" ReadOnly="true" />
+    <br>
+    <RadzenLabel Text="Gender" Style="width: 160px" />
+    <RadzenTextBox Name="gender" @bind-Value=@gender Style="width: 160px" ReadOnly="true" />
+    <br>
+    <RadzenLabel Text="Phone Number" Style="width: 160px" />
+    <RadzenTextBox Name="PhoneNumber" @bind-Value=@model.Patient.PhoneNumber Style="width: 160px" ReadOnly="true" />
+    <br>
+    <RadzenLabel Text="E-mail" Style="width: 160px" />
+    <RadzenTextBox Name="Email" @bind-Value=@model.Patient.Email Style="width: 160px" ReadOnly="true" />
+    <br>
+    <RadzenLabel Text="Pesel" Style="width: 160px" />
+    <RadzenTextBox Name="Pesel" @bind-Value=@model.Patient.Pesel Style="width: 160px" ReadOnly="true" />
+    <br>
+    <RadzenLabel Text="Blood Type" Style="width: 160px" />
+    <RadzenTextBox Name="BloodType" @bind-Value=@blood Style="width: 160px" ReadOnly="true" />
+    <br>
+    <RadzenLabel Text="Active" Style="width: 160px" />
+    <RadzenTextBox Name="IsActive" @bind-Value=@active Style="width: 160px" ReadOnly="true" />
+    <br>
+}
+<RadzenMenu>
+    <RadzenMenuItem Text="Edit" Icon="edit" Path="/patient/edit" />
+    <RadzenMenuItem Text="Appointments" Icon="list" Path="/patient/appointments" />
+</RadzenMenu>
+
+@code{ 
+        String blood, birthday, gender, active;
+    protected override void OnInitialized()
+    {
+        if (model.Patient != null)
+        {
+            blood = model.Patient.BloodType.ToString();
+            birthday = model.Patient.Birthday.ToString();
+            gender = model.Patient.Gender.ToString();
+            active = model.Patient.IsActive.ToString();
+        }
+    }
+    private async Task View()
+    {
+        await controller.SearchPatientIdAsync();
+        blood = model.Patient.BloodType.ToString();
+        birthday = model.Patient.Birthday.ToString();
+        gender = model.Patient.Gender.ToString();
+        active = model.Patient.IsActive.ToString();
+    }
+}

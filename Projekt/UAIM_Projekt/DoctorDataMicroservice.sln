@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31129.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ModelClassLibrary", "ModelClassLibrary", "{139B72B5-A9AD-4BE8-B239-5FBA0C20FABC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModelClassLibrary", "ModelClassLibrary\ModelClassLibrary.csproj", "{43557989-A0DD-4E5F-B8F5-92ED4212FE33}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XMLDatabase", "XMLDatabase", "{10D460F6-E1A7-4B2D-A8E0-DBB963DEBC67}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XMLDatabase", "XMLDatabase\XMLDatabase.csproj", "{F3D58D34-F8E3-4228-B4B9-A384386DA640}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DoctorsDataMicroservice", "DoctorsDataMicroservice", "{42ABCEF1-7551-4006-86E3-314A517F5272}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7C024786-9D8F-485E-A14E-BA74C55EB3E2}"
+	ProjectSection(SolutionItems) = preProject
+		specializations.xml = specializations.xml
+		treatments.xml = treatments.xml
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DoctorsDataMicroservice", "DoctorsDataMicroservice\DoctorsDataMicroservice.csproj", "{A523223D-6994-4BF9-8BDE-E72E313B84C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoctorDataTest", "DoctorDataTest\DoctorDataTest.csproj", "{94E58D58-AA3D-4148-8ED8-77B47E805B70}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{43557989-A0DD-4E5F-B8F5-92ED4212FE33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43557989-A0DD-4E5F-B8F5-92ED4212FE33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43557989-A0DD-4E5F-B8F5-92ED4212FE33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43557989-A0DD-4E5F-B8F5-92ED4212FE33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3D58D34-F8E3-4228-B4B9-A384386DA640}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3D58D34-F8E3-4228-B4B9-A384386DA640}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3D58D34-F8E3-4228-B4B9-A384386DA640}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3D58D34-F8E3-4228-B4B9-A384386DA640}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A523223D-6994-4BF9-8BDE-E72E313B84C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A523223D-6994-4BF9-8BDE-E72E313B84C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A523223D-6994-4BF9-8BDE-E72E313B84C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A523223D-6994-4BF9-8BDE-E72E313B84C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94E58D58-AA3D-4148-8ED8-77B47E805B70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94E58D58-AA3D-4148-8ED8-77B47E805B70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94E58D58-AA3D-4148-8ED8-77B47E805B70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94E58D58-AA3D-4148-8ED8-77B47E805B70}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{43557989-A0DD-4E5F-B8F5-92ED4212FE33} = {139B72B5-A9AD-4BE8-B239-5FBA0C20FABC}
+		{F3D58D34-F8E3-4228-B4B9-A384386DA640} = {10D460F6-E1A7-4B2D-A8E0-DBB963DEBC67}
+		{A523223D-6994-4BF9-8BDE-E72E313B84C2} = {42ABCEF1-7551-4006-86E3-314A517F5272}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {61AD7CC4-49F1-4CDA-8C1E-F1E620E52A28}
+	EndGlobalSection
+EndGlobal

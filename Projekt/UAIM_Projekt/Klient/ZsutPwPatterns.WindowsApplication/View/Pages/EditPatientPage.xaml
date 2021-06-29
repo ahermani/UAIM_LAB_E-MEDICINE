@@ -1,0 +1,65 @@
+﻿<Page
+    x:Class="ZsutPw.Patterns.WindowsApplication.View.EditPatientPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:icore="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:model="using:ZsutPw.Patterns.WindowsApplication.Model"
+    xmlns:view="using:ZsutPw.Patterns.WindowsApplication.View"
+    xmlns:controller="using:ZsutPw.Patterns.WindowsApplication.Controller"
+    Background="{ThemeResource SystemListMediumColor}"
+    FontFamily="Helvetica"
+    >
+
+    <Page.Resources>
+        <controller:ApplicationStateConverter x:Key="ApplicationStateConverter" />
+        <view:PatientDetailConverter x:Key="PatientDetailConverter" />
+
+        <DataTemplate x:Key="PatientDetailViewTemplate" x:DataType="model:PatientDto">
+            <TextBlock Text="{x:Bind Mode=OneTime, Converter={StaticResource PatientDetailConverter}}" />
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid x:Name="rootPanel" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="500" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="listPanel" Background="DimGray"  Grid.Row="0" Width="360">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="70" />
+            </Grid.RowDefinitions>
+
+            <StackPanel x:Name="PatientNavPanel" Grid.Row="0" Orientation="Horizontal" Margin="4">
+                <AppBarButton x:Name="searchButton" Icon="Find" Label="Search" FontFamily="Helvetica" Command="{x:Bind Controller.SearchPatientIdCommand}" VerticalAlignment="Bottom" />
+                <HyperlinkButton Background="DimGray" Foreground="White" Style="{ThemeResource TextBlockButtonStyle}" Height="35" Width="358" Content="Go to Main Page" Click="MainPage_Click" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" >
+                <StackPanel Background="Gray" BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}" BorderThickness="1" x:Name="EditedPatientPanel" Margin="4">
+                    <TextBox x:Name="name" Header="Name:" FontFamily="Helvetica" Text="{x:Bind Path=Model.EditedPatient.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" VerticalAlignment="Bottom" />
+                    <TextBox x:Name="surname" Header="Surname:" FontFamily="Helvetica" Text="{x:Bind Path=Model.EditedPatient.Surname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" VerticalAlignment="Bottom" />
+                    <TextBox x:Name="birthday" Header="Birthday:" FontFamily="Helvetica" Text="{x:Bind Path=Model.EditedPatient.Birthday, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" VerticalAlignment="Bottom" />
+                    <ComboBox Header="Gender:" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="150" ItemsSource="{x:Bind GenderEnum}" SelectedItem="{x:Bind Model.EditedPatient.Gender, Mode=TwoWay}"/>
+                    <TextBox x:Name="phoneNumber" Header="Phone number:" FontFamily="Helvetica" Text="{x:Bind Path=Model.EditedPatient.PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" VerticalAlignment="Bottom" />
+                    <TextBox x:Name="email" Header="Email:" FontFamily="Helvetica" Text="{x:Bind Path=Model.EditedPatient.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" VerticalAlignment="Bottom" />
+                    <TextBox x:Name="pesel" Header="PESEL:" FontFamily="Helvetica" Text="{x:Bind Path=Model.EditedPatient.Pesel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" VerticalAlignment="Bottom" />
+                    <TextBox x:Name="registrationDate" IsReadOnly="True" Header="Registration Date:" FontFamily="Helvetica" Text="{x:Bind Path=Model.EditedPatient.RegistrationDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" VerticalAlignment="Bottom" />
+                    <ComboBox Header="Blood type:" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="150" ItemsSource="{x:Bind BloodTypeEnum}" SelectedItem="{x:Bind Model.EditedPatient.BloodType, Mode=TwoWay}"/>
+                    <TextBox x:Name="isActive" Header="Active:" FontFamily="Helvetica" Text="{x:Bind Path=Model.EditedPatient.IsActive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" VerticalAlignment="Bottom" />
+                </StackPanel>
+            </ScrollViewer>
+            <StackPanel Background="DimGray" Grid.Row="2" Margin="4">
+                <CommandBar x:Name="PatientCommandBar" DefaultLabelPosition="Right" Background="Transparent" HorizontalAlignment="Center">
+                    <AppBarButton Icon="Save" FontFamily="Helvetica" Label="Save" Command="{x:Bind Controller.UpdatePatientCommand}" />
+                    <AppBarButton Icon="View" FontFamily="Helvetica" Label="View" Click="ViewPatient_Click"/>
+                </CommandBar>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

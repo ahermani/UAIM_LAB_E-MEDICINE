@@ -1,0 +1,34 @@
+﻿@page "/treatments/view"
+@inject IController controller
+@inject IModel model
+<h5>Treatment Detail</h5>
+<br>
+@if (model.SelectedTreatment != null)
+{
+    <RadzenLabel Text="Name" Style="width: 160px" />
+    <RadzenTextBox Name="name" @bind-Value=@model.SelectedTreatment.Name Style="width: 160px" ReadOnly="true" />
+    <br>
+    <RadzenLabel Text="Price" Style="width: 160px" />
+    <RadzenTextBox Name="Price" @bind-Value=@price Style="width: 160px" ReadOnly="true" />
+    <br>
+    <RadzenLabel Text="Length" Style="width: 160px" />
+    <RadzenTextBox Name="Length" @bind-Value=@length Style="width: 160px" ReadOnly="true" />
+    <br>
+    <RadzenLabel Text="Required Specializations" Style="width: 160px" />
+    <RadzenTextBox Name="specializations" @bind-Value=@specializations Style="width: 160px" ReadOnly="true" />
+    <br>
+}
+
+<RadzenMenu>
+    <RadzenMenuItem Text="Treatments" Icon="list" Path="/treatments" />
+</RadzenMenu>
+
+@code{
+    String price, length, specializations;
+    protected override void OnInitialized()
+    {
+        length = model.SelectedTreatment.Length.ToString();
+        price = model.SelectedTreatment.Price.ToString();
+        specializations = string.Join(", ", model.SelectedTreatment.RequiredSpecializations);
+    }
+}

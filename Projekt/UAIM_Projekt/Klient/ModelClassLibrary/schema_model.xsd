@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://microsoft.com/wsdl/types/" />
+  <xs:element name="Appointment" nillable="true" type="Appointment" />
+  <xs:complexType name="Appointment">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Id" xmlns:q1="http://microsoft.com/wsdl/types/" type="q1:guid" />
+      <xs:element minOccurs="1" maxOccurs="1" name="CreatorId" xmlns:q2="http://microsoft.com/wsdl/types/" type="q2:guid" />
+      <xs:element minOccurs="1" maxOccurs="1" name="State" type="State" />
+      <xs:element minOccurs="1" maxOccurs="1" name="CreationDate" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="AppointmentDate" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="PatientId" xmlns:q3="http://microsoft.com/wsdl/types/" type="q3:guid" />
+      <xs:element minOccurs="1" maxOccurs="1" name="DoctorId" xmlns:q4="http://microsoft.com/wsdl/types/" type="q4:guid" />
+      <xs:element minOccurs="0" maxOccurs="1" name="TreatmentIds" type="ArrayOfGuid" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Note" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="State">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PlannedByPatient" />
+      <xs:enumeration value="PlannedByDoctor" />
+      <xs:enumeration value="InProgress" />
+      <xs:enumeration value="CancelledByPatient" />
+      <xs:enumeration value="CancelledByDoctor" />
+      <xs:enumeration value="Completed" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ArrayOfGuid">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="guid" xmlns:q5="http://microsoft.com/wsdl/types/" type="q5:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Blood" type="Blood" />
+  <xs:simpleType name="Blood">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ZeroPlus" />
+      <xs:enumeration value="APlus" />
+      <xs:enumeration value="BPlus" />
+      <xs:enumeration value="ABPlus" />
+      <xs:enumeration value="ZeroMinus" />
+      <xs:enumeration value="AMinus" />
+      <xs:enumeration value="BMinus" />
+      <xs:enumeration value="ABMinus" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Doctor" nillable="true" type="Doctor" />
+  <xs:complexType name="Doctor">
+    <xs:complexContent mixed="false">
+      <xs:extension base="Person">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Specialization" type="ArrayOfGuid" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Room" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Person" abstract="true">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Id" xmlns:q6="http://microsoft.com/wsdl/types/" type="q6:guid" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Name" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Surname" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Birthday" type="xs:dateTime" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Gender" type="Gender" />
+      <xs:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Email" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="Gender">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Male" />
+      <xs:enumeration value="Female" />
+      <xs:enumeration value="Other" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Gender" type="Gender" />
+  <xs:element name="Patient" nillable="true" type="Patient" />
+  <xs:complexType name="Patient">
+    <xs:complexContent mixed="false">
+      <xs:extension base="Person">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Pesel" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="RegistrationDate" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="BloodType" type="Blood" />
+          <xs:element minOccurs="1" maxOccurs="1" name="IsActive" type="Blood" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Person" nillable="true" type="Person" />
+  <xs:element name="Specialization" nillable="true" type="Specialization" />
+  <xs:complexType name="Specialization">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Name" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Description" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="State" type="State" />
+  <xs:element name="Treatment" nillable="true" type="Treatment" />
+  <xs:complexType name="Treatment">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Id" xmlns:q7="http://microsoft.com/wsdl/types/" type="q7:guid" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Name" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Price" type="xs:float" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Length" type="TimeSpan" />
+      <xs:element minOccurs="0" maxOccurs="1" name="RequiredSpecializations" type="ArrayOfInt" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TimeSpan" />
+  <xs:complexType name="ArrayOfInt">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="int" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

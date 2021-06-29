@@ -1,0 +1,38 @@
+version: "3.9"
+services:
+    doctors-data:
+        image: mkowal17/doctors:latest
+        ports:
+            - "5004:80"
+    patients-data:
+        image: mkowal17/patients:latest
+        ports:
+            - "5003:80"
+    data_treatments:
+        image: mkowal17/treatments:latest
+        ports:
+            - 5000:80
+        deploy:
+          replicas: 1
+    data_specializations:
+        image: mkowal17/specializations:latest
+        ports:
+          - 5001:80
+        deploy:
+          replicas: 1
+    data_appointments:
+        image: mkowal17/appointments:latest
+        ports:
+          - 5002:80
+        deploy:
+          replicas: 1
+    patients-app:
+        image: ahermani/patient-app:latest
+        ports:
+            - "5005:80"
+        depends_on:
+            - patients-data
+            - doctors-data
+            - data_treatments
+            - data_specializations
+            - data_appointments

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ZsutPwPatterns.Application.Model\ZsutPwPatterns.Application.Model.csproj" />
+    <ProjectReference Include="..\ZsutPwPatterns.Application.Utilities\ZsutPwPatterns.Application.Utilities.csproj" />
+  </ItemGroup>
+
+</Project>

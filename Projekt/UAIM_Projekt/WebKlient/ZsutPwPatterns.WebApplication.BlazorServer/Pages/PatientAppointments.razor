@@ -1,0 +1,37 @@
+﻿@page "/patient/appointments"
+@inject IController controller
+@inject IModel model
+
+<h5>Click to search for your appointments</h5>
+
+<RadzenDatePicker Name="from" @bind-Value=@model.From Style="width: 180px" />
+<br>
+<br>
+<RadzenDatePicker Name="to" @bind-Value=@model.To Style="width: 180px" />
+<br>
+<br>
+<RadzenButton Icon="search" Text="Search" Click=@controller.SearchPatientAppointmentsAsync Style="width: 160px" />
+
+<h5 style="margin-top: 16px">Appointments</h5>
+
+<RadzenGrid Count="@model.PatientAppointmentsList.Count" Data="@model.PatientAppointmentsList" TItem=AppointmentDto RowSelect="@SelectedAppointmentChanged">
+    <Columns>
+        <RadzenGridColumn TItem="AppointmentDto" Property="State" Title="State" />
+        <RadzenGridColumn TItem="AppointmentDto" Property="AppointmentDate" Title="Date" />
+        <RadzenGridColumn TItem="AppointmentDto" Property="DoctorId" Title="Doctor Id" />
+    </Columns>
+</RadzenGrid>
+
+<RadzenMenu>
+    <RadzenMenuItem Text="View" Icon="pageview" Path="/patient/appointments/view" />
+    <RadzenMenuItem Text="Edit" Icon="list" Path="/patient/appointments/edit" />
+    <RadzenMenuItem Text="Add" Icon="add" Path="/patient/appointments/add" />
+</RadzenMenu>
+
+@code {
+
+    private void SelectedAppointmentChanged(AppointmentDto appointment)
+    {
+        model.SelectedAppointment = appointment;
+    }
+}

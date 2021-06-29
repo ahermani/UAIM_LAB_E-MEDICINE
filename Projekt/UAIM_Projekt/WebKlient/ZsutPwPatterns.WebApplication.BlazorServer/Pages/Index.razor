@@ -1,0 +1,18 @@
+﻿@page "/"
+@inject IModel model
+@inject NavigationManager NavigationManager
+
+
+<h5>Enter your login:</h5>
+
+
+<RadzenTextBox Name="patientId" @bind-Value=@model.PatientId Style="width: 160px" />
+
+<RadzenButton Icon="login" Text="Login" Click="@Navigate" Style="width: 160px" />
+
+@code{
+    private void Navigate()
+    {
+        NavigationManager.NavigateTo("/patient");
+    }
+}

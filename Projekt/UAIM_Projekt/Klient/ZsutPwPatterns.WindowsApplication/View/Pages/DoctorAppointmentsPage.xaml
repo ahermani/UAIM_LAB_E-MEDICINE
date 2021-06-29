@@ -1,0 +1,58 @@
+﻿<Page
+    x:Class="ZsutPw.Patterns.WindowsApplication.View.DoctorAppointmentsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:icore="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:model="using:ZsutPw.Patterns.WindowsApplication.Model"
+    xmlns:view="using:ZsutPw.Patterns.WindowsApplication.View"
+    xmlns:controller="using:ZsutPw.Patterns.WindowsApplication.Controller"
+    Background="{ThemeResource SystemListMediumColor}"
+    >
+
+    <Page.Resources>
+        <controller:ApplicationStateConverter x:Key="ApplicationStateConverter" />
+        <view:DateConverter x:Key="DateConverter" />
+        <view:AppointmentConverter x:Key="AppointmentConverter" />
+
+        <DataTemplate x:Key="AppointmentListViewTemplate" x:DataType="model:AppointmentDto">
+            <TextBlock Text="{x:Bind Mode=OneTime, Converter={StaticResource AppointmentConverter}}" />
+        </DataTemplate>
+        <DataTemplate x:Key="DateViewTemplate">
+            <TextBlock Text="{x:Bind Mode=OneTime, Converter={StaticResource DateConverter}}" />
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid Width="500" x:Name="rootPanel" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="570" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="listPanel" Background="DimGray"  Grid.Row="0" Width="360">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60" />
+                <RowDefinition Height="140" />
+                <RowDefinition Height="320" />
+            </Grid.RowDefinitions>
+
+            <StackPanel x:Name="AppointmentNavPanel" Grid.Row="0" Orientation="Horizontal" Margin="4">
+                <AppBarButton x:Name="searchButton" Icon="Find" Label="Search" FontFamily="Helvetica" Command="{x:Bind Controller.SearchDoctorAppointmentsCommand}" VerticalAlignment="Bottom" />
+                <HyperlinkButton Background="DimGray" Foreground="White" Style="{ThemeResource TextBlockButtonStyle}" Height="35" Width="358" Content="Go to Main Page" Click="MainPage_Click" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel x:Name="AppointmentSearchPanel" Grid.Row="1" Orientation="Vertical" Margin="4">
+                <TextBox x:Name="from" Header="From:" FontFamily="Helvetica" Text="{x:Bind Path=Model.From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateConverter}}" Width="200" VerticalAlignment="Bottom" />
+                <TextBox x:Name="to" Header="To:" FontFamily="Helvetica" Text="{x:Bind Path=Model.To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateConverter}}" Width="200" VerticalAlignment="Bottom" />
+            </StackPanel>
+            <StackPanel x:Name="AppointmentPanel" Grid.Row="2" Margin="4">
+                <TextBlock x:Name="AppointmentText" FontFamily="Helvetica" Text="Appointments" Margin="0,4,0,4" />
+                <ListView x:Name="AppointmentList" FontFamily="Helvetica" ItemsSource="{x:Bind Model.DoctorAppointmentsList, Mode=OneWay}" ItemTemplate="{StaticResource AppointmentListViewTemplate}" SelectedItem="{x:Bind Model.SelectedAppointment, Mode=TwoWay}" Height="240" BorderThickness="1" BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}" />
+                <CommandBar x:Name="AppointmentCommandBar" DefaultLabelPosition="Right" Background="Transparent" HorizontalAlignment="Center">
+                </CommandBar>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

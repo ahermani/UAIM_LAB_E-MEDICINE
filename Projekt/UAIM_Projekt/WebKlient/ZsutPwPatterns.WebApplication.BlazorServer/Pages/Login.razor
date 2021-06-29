@@ -1,0 +1,14 @@
+﻿<h5>Enter your login:</h5>
+@inject IModel model
+@inject NavigationManager NavigationManager
+
+<RadzenTextBox Name="patientId" @bind-Value=@model.PatientId Style="width: 160px" />
+
+<RadzenButton Icon="login" Text="Login" Click=@OnClick Style="width: 160px" />
+
+@code{
+    void OnClick()
+    {
+        NavigationManager.NavigateTo("abc",true);
+    }
+}

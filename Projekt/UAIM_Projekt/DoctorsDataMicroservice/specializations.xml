@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<ArrayOfSpecialization xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Specialization>
+    <Id>0</Id>
+    <Name>General</Name>
+    <Description>Allows general checks on patients</Description>
+  </Specialization>
+  <Specialization>
+    <Id>1</Id>
+    <Name>Psychiatrist</Name>
+    <Description>Allows psychotherapy</Description>
+  </Specialization>
+  <Specialization>
+    <Id>2</Id>
+    <Name>Dentist</Name>
+    <Description>Allows dental treatments</Description>
+  </Specialization>
+  <Specialization>
+    <Id>3</Id>
+    <Name>Laryngologist</Name>
+    <Description>Allows ENT procedures</Description>
+  </Specialization>
+  <Specialization>
+    <Id>4</Id>
+    <Name>Dietitian</Name>
+    <Description>Allows diet selection</Description>
+  </Specialization>
+  <Specialization>
+    <Id>5</Id>
+    <Name>Cardiologist</Name>
+    <Description>Allows cardiology diagnostics and treatments</Description>
+  </Specialization>
+  <Specialization>
+    <Id>6</Id>
+    <Name>Orthopaedist</Name>
+    <Description>Allows diagnosis and treatment of bone diseases</Description>
+  </Specialization>
+</ArrayOfSpecialization>

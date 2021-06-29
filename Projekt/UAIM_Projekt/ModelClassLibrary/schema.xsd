@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Appointment" nillable="true" type="Appointment" />
+  <xs:complexType name="Appointment" />
+  <xs:element name="Blood" type="Blood" />
+  <xs:simpleType name="Blood">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ZeroPlus" />
+      <xs:enumeration value="APlus" />
+      <xs:enumeration value="BPlus" />
+      <xs:enumeration value="ABPlus" />
+      <xs:enumeration value="ZeroMinus" />
+      <xs:enumeration value="AMinus" />
+      <xs:enumeration value="BMinus" />
+      <xs:enumeration value="ABMinus" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Doctor" nillable="true" type="Doctor" />
+  <xs:complexType name="Doctor">
+    <xs:complexContent mixed="false">
+      <xs:extension base="Person" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Person" abstract="true" />
+  <xs:element name="Gender" type="Gender" />
+  <xs:simpleType name="Gender">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Male" />
+      <xs:enumeration value="Female" />
+      <xs:enumeration value="Other" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Patient" nillable="true" type="Patient" />
+  <xs:complexType name="Patient">
+    <xs:complexContent mixed="false">
+      <xs:extension base="Person" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Person" nillable="true" type="Person" />
+  <xs:element name="Specialization" nillable="true" type="Specialization" />
+  <xs:complexType name="Specialization" />
+  <xs:element name="State" type="State" />
+  <xs:simpleType name="State">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PlannedByPatient" />
+      <xs:enumeration value="PlannedByDoctor" />
+      <xs:enumeration value="InProgress" />
+      <xs:enumeration value="CancelledByPatient" />
+      <xs:enumeration value="CancelledByDoctor" />
+      <xs:enumeration value="Completed" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Treatment" nillable="true" type="Treatment" />
+  <xs:complexType name="Treatment" />
+</xs:schema>

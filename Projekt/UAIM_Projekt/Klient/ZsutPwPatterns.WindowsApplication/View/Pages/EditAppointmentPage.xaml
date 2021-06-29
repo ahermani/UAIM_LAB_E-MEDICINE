@@ -1,0 +1,70 @@
+<Page
+    x:Class="ZsutPw.Patterns.WindowsApplication.View.EditAppointmentPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:icore="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:model="using:ZsutPw.Patterns.WindowsApplication.Model"
+    xmlns:view="using:ZsutPw.Patterns.WindowsApplication.View"
+    xmlns:controller="using:ZsutPw.Patterns.WindowsApplication.Controller"
+    Background="{ThemeResource SystemListMediumColor}"
+    FontFamily="Helvetica"
+    >
+
+    <Page.Resources>
+        <controller:ApplicationStateConverter x:Key="ApplicationStateConverter" />
+        <view:AppointmentConverter x:Key="AppointmentDetailConverter" />
+        <view:DateConverter x:Key="DateConverter" />
+        <view:TreatmentIdsConverter x:Key="TreatmentIdsConverter" />
+
+        <DataTemplate x:Key="AppointmentDetailViewTemplate" x:DataType="model:AppointmentDto">
+            <TextBlock Text="{x:Bind Mode=OneTime, Converter={StaticResource AppointmentDetailConverter}}" />
+        </DataTemplate>
+        <DataTemplate x:Key="DateViewTemplate">
+            <TextBlock Text="{x:Bind Mode=OneTime, Converter={StaticResource DateConverter}}" />
+        </DataTemplate>
+        <DataTemplate x:Key="TreatmentIdsViewTemplate">
+            <TextBlock Text="{x:Bind Mode=OneTime, Converter={StaticResource TreatmentIdsConverter}}" />
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid x:Name="rootPanel" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="500" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="listPanel" Background="DimGray"  Grid.Row="0" Width="360">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="70" />
+            </Grid.RowDefinitions>
+
+            <StackPanel x:Name="AppointmentNavPanel" Grid.Row="0" Orientation="Horizontal" Margin="4">
+                <HyperlinkButton Background="DimGray" Foreground="White" Style="{ThemeResource TextBlockButtonStyle}" Height="35" Width="358" Content="Go to Main Page" Click="MainPage_Click" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" >
+                <StackPanel Background="Gray" BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}" BorderThickness="1" x:Name="AppointmentPanel" Margin="4">
+                    <TextBox x:Name="creatorId" IsReadOnly="True" Header="Creator ID:" FontFamily="Helvetica" Text="{x:Bind Path=Model.SelectedAppointment.CreatorId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" VerticalAlignment="Bottom" />
+                    <ComboBox Header="State:" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="150" ItemsSource="{x:Bind StateEnum}" SelectedItem="{x:Bind Model.SelectedAppointment.State, Mode=TwoWay}"/>
+                    <TextBox x:Name="creationDate" IsReadOnly="True" Header="Creation date:" FontFamily="Helvetica" Text="{x:Bind Path=Model.SelectedAppointment.CreationDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateConverter}}" Width="200" VerticalAlignment="Bottom" />
+                    <TextBox x:Name="appointmentDate" Header="Appointment date:" FontFamily="Helvetica" Text="{x:Bind Path=Model.SelectedAppointment.AppointmentDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateConverter}}" Width="200" VerticalAlignment="Bottom" />
+                    <TextBox x:Name="patientId" IsReadOnly="True" Header="Patient ID:" FontFamily="Helvetica" Text="{x:Bind Path=Model.SelectedAppointment.PatientId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" VerticalAlignment="Bottom" />
+                    <TextBox x:Name="doctorId" Header="Doctor ID:" FontFamily="Helvetica" Text="{x:Bind Path=Model.SelectedAppointment.DoctorId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" VerticalAlignment="Bottom" />
+                    <TextBox x:Name="treatmentIds" Header="Treatment IDs:" FontFamily="Helvetica" Text="{x:Bind Path=Model.SelectedAppointment.TreatmentIds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TreatmentIdsConverter}}" Width="200" VerticalAlignment="Bottom" />
+                    <TextBox x:Name="Note" Header="Note:" FontFamily="Helvetica" Text="{x:Bind Path=Model.SelectedAppointment.Note, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" VerticalAlignment="Bottom" />
+                </StackPanel>
+            </ScrollViewer>
+            <StackPanel Background="DimGray" Grid.Row="2" Margin="4">
+                <CommandBar x:Name="AppointmentCommandBar" DefaultLabelPosition="Right" Background="Transparent" HorizontalAlignment="Center">
+                    <AppBarButton Icon="Save" FontFamily="Helvetica" Label="Save" Command="{x:Bind Controller.UpdateAppointmentCommand}" />
+                    <AppBarButton Icon="View" FontFamily="Helvetica" Label="View" Click="ListAppointments_Click"/>
+                </CommandBar>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

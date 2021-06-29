@@ -1,0 +1,49 @@
+﻿@page "/doctors/view"
+@inject IController controller
+@inject IModel model
+<h5>Doctor Data</h5>
+<br>
+<br>
+@if (model.SelectedDoctor != null)
+{
+    <RadzenLabel Text="Name" Style="width: 160px" />
+    <RadzenTextBox Name="name" @bind-Value=@model.SelectedDoctor.Name Style="width: 160px" ReadOnly="true" />
+    <br>
+    <RadzenLabel Text="Surname" Style="width: 160px" />
+    <RadzenTextBox Name="Surname" @bind-Value=@model.SelectedDoctor.Surname Style="width: 160px" ReadOnly="true" />
+    <br>
+    <RadzenLabel Text="Birthday" Style="width: 160px" />
+    <RadzenTextBox Name="Birthday" @bind-Value=@birthday Style="width: 160px" ReadOnly="true" />
+    <br>
+    <RadzenLabel Text="Gender" Style="width: 160px" />
+    <RadzenTextBox Name="Gender" @bind-Value=@gender Style="width: 160px" ReadOnly="true" />
+    <br>
+    <RadzenLabel Text="Phone Number" Style="width: 160px" />
+    <RadzenTextBox Name="PhoneNumber" @bind-Value=@model.SelectedDoctor.PhoneNumber Style="width: 160px" ReadOnly="true" />
+    <br>
+    <RadzenLabel Text="E-mail" Style="width: 160px" />
+    <RadzenTextBox Name="Email" @bind-Value=@model.SelectedDoctor.Email Style="width: 160px" ReadOnly="true" />
+    <br>
+    <RadzenLabel Text="Room" Style="width: 160px" />
+    <RadzenTextBox Name="Room" @bind-Value=@model.SelectedDoctor.Room Style="width: 160px" ReadOnly="true" />
+    <br>
+    <RadzenLabel Text="Specializations" Style="width: 160px" />
+    <RadzenTextBox Name="Specializations" @bind-Value=@specializations Style="width: 160px" ReadOnly="true" />
+    <br>
+}
+
+<RadzenMenu>
+    <RadzenMenuItem Text="All Doctors" Icon="back" Path="/doctors" />
+    <RadzenMenuItem Text="Appointments" Icon="list" Path="/doctors/appointments" />
+</RadzenMenu>
+
+
+@code{
+    String birthday, gender, specializations;
+    protected override void OnInitialized()
+    {
+        birthday = model.SelectedDoctor.Birthday.ToString();
+        gender = model.SelectedDoctor.Gender.ToString();
+        specializations = string.Join(", ", model.SelectedDoctor.Specialization);
+    }
+}

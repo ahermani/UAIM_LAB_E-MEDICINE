@@ -1,0 +1,80 @@
+# This file is a template, and might need editing before it works on your project.
+# This file is a template demonstrating the `script` keyword.
+# Learn more about this keyword here: https://docs.gitlab.com/ee/ci/yaml/README.html#script
+
+# After committing this template, visit CI/CD > Jobs to see the script output.
+
+stages:
+    - build
+    - test
+    - containerize
+    - deploy
+
+build-data:
+    stage: build
+    before_script:
+      - cd Microservices/ExaminationRooms
+    script:
+      - dotnet restore
+      - dotnet build -c Debug
+      - dotnet build -c Release
+    tags:
+      - integration, delivery
+
+build-app:
+    stage: build
+    before_script:
+      - cd Microservices/ExaminationRoomsSelector
+    script:
+      - dotnet restore
+      - dotnet build -c Debug
+      - dotnet build -c Release
+    tags:
+      - integration, delivery
+      
+test:
+    stage: test
+    before_script:
+      - cd Microservices/ExaminationRoomsSelector/ExaminationRoomsSelectorTest
+    script:
+      - dotnet restore
+      - dotnet build -c Debug
+      - dotnet build -c Release
+      - dotnet test
+    tags:
+      - integration, delivery
+      
+containerize-data:
+    stage: containerize
+    only:
+      - master
+    before_script:
+      - cd Microservices/ExaminationRooms
+      - docker login -u $login -p $password
+    script:
+      - docker build -f Dockerfile -t ahermani/rooms-data:latest .
+      - docker push ahermani/rooms-data:latest
+    tags:
+      - integration, delivery
+      
+containerize-app:
+    stage: containerize
+    only:
+      - master
+    before_script:
+      - cd Microservices/ExaminationRoomsSelector
+      - docker login -u $login -p $password
+    script:
+      - docker build -f Dockerfile -t ahermani/selector-app:latest .
+      - docker push ahermani/selector-app:latest
+    tags:
+      - integration, delivery
+      
+deploy:
+    stage: deploy
+    only:
+      - master
+    script:
+      - docker compose up -d
+    tags:
+      - deployment

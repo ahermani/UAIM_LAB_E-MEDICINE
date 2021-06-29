@@ -1,0 +1,105 @@
+# This file is a template, and might need editing before it works on your project.
+# This file is a template demonstrating the `script` keyword.
+# Learn more about this keyword here: https://docs.gitlab.com/ee/ci/yaml/README.html#script
+
+# After committing this template, visit CI/CD > Jobs to see the script output.
+
+stages:
+    - build
+    - test
+    - containerize
+    - deploy
+
+build-doctor-data:
+    stage: build
+    before_script:
+      - cd Projekt/UAIM_Projekt
+    script:
+      - dotnet restore
+      - dotnet build -c Debug
+      - dotnet build -c Release
+
+build-patient-data:
+    stage: build
+    before_script:
+      - cd Projekt/UAIM_Projekt/PatientDataMicroservice
+    script:
+      - dotnet restore
+      - dotnet build -c Debug
+      - dotnet build -c Release
+      
+build-patient-app:
+    stage: build
+    before_script:
+      - cd Projekt/UAIM_Projekt/PatientAppMicroservice
+    script:
+      - dotnet restore
+      - dotnet build -c Debug
+      - dotnet build -c Release
+      
+test-doctor-data:
+    stage: test
+    before_script:
+      - cd Projekt/UAIM_Projekt/DoctorDataTest
+    script:
+      - dotnet restore
+      - dotnet build -c Debug
+      - dotnet build -c Release
+      - dotnet test
+
+test-patient-data:
+    stage: test
+    before_script:
+      - cd Projekt/UAIM_Projekt/PatientDataTest
+    script:
+      - dotnet restore
+      - dotnet build -c Debug
+      - dotnet build -c Release
+      - dotnet test
+      
+containerize-doctor-data:
+    stage: containerize
+    only:
+      - master
+    before_script:
+      - cd Projekt/UAIM_Projekt
+      - docker login -u $login -p $password
+    script:
+      - docker build -f DoctorsDataMicroservice/Dockerfile -t ahermani/doctors:latest .
+      - docker push ahermani/doctors:latest
+      
+containerize-patient-data:
+    stage: containerize
+    only:
+      - master
+    before_script:
+      - cd Projekt/UAIM_Projekt
+      - docker login -u $login -p $password
+    script:
+      - docker build -f PatientDataMicroservice/Dockerfile -t ahermani/patients:latest .
+      - docker push ahermani/patients:latest
+
+containerize-patient-app:
+    stage: containerize
+    only:
+      - master
+    before_script:
+      - cd Projekt/UAIM_Projekt
+      - docker login -u $login -p $password
+    script:
+      - docker build -f PatientAppMicroservice/Dockerfile -t ahermani/patient-app:latest .
+      - docker push ahermani/patient-app:latest
+
+      
+deploy:
+    stage: deploy
+    only:
+      - master
+    before_script:
+      - cd Miniprojekty/Kubernetes
+    script:
+      - kubectl config set-cluster microk8s-cluster --server=$KUBERNETES_URL --insecure-skip-tls-verify
+      - kubectl config set-credentials admin --token=$KUBERNETES_TOKEN
+      - kubectl config set-context microk8s --cluster=microk8s-cluster --namespace=default --user=admin
+      - kubectl config use-context microk8s
+      - kubectl apply -f kubectl.yaml
