@@ -26,6 +26,8 @@ namespace ZsutPw.Patterns.Application.Model
   {
         List<DoctorDto> AllDoctorsList { get; }
         List<TreatmentDto> AllTreatmentsList { get; }
+        List<TreatmentDto> SelectedAppointmentTreatments { get;}
+
         List<AppointmentDto> DoctorAppointmentsList { get; }
         List<AppointmentDto> PatientAppointmentsList { get; }
         String SearchId { get; set; }
@@ -41,5 +43,6 @@ namespace ZsutPw.Patterns.Application.Model
         AppointmentDto AppointmentToAdd { get; set; }
         AppointmentDto EditedAppointment { get; set; }
         TreatmentDto SelectedTreatment { get; set; }
+        TreatmentDto Treatment { get; set; }
     }
 }

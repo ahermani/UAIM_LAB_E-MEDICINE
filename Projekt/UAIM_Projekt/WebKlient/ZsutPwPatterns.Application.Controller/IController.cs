@@ -36,7 +36,7 @@ namespace ZsutPw.Patterns.Application.Controller
         ICommand SearchDoctorIdCommand { get; }
         ICommand SearchPatientIdCommand { get; }
         ICommand SearchAppointmentIdCommand { get; }
-
+        ICommand SearchTreatmentIdCommand { get; }
         ICommand SearchDoctorAppointmentsCommand { get; }
 
         ICommand SearchPatientAppointmentsCommand { get; }
@@ -52,6 +52,7 @@ namespace ZsutPw.Patterns.Application.Controller
         Task SearchAllTreatmentsAsync();
         Task SearchDoctorIdAsync();
         Task SearchPatientIdAsync();
+        Task SearchTreatmentIdAsync();
         Task SearchAppointmentIdAsync();
         Task SearchDoctorAppointmentsAsync();
         Task UpdatePatientAsync();

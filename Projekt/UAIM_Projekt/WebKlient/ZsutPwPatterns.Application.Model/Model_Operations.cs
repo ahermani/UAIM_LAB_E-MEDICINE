@@ -27,7 +27,7 @@ namespace ZsutPw.Patterns.Application.Model
             /* AT
             this.LoadNodesTask( );
             */
-            Task.Run(() => this.LoadAllDoctorsTask());
+            Task.Run(() => this.LoadAllDoctorsTask()).Wait();
         }
 
         private void LoadAllDoctorsTask()
@@ -67,13 +67,32 @@ namespace ZsutPw.Patterns.Application.Model
             {
             }
         }
+        public void LoadTreatmentId()
+        {
+            Task.Run(() => this.LoadTreatmentIdTask()).Wait();
+        }
+
+        private void LoadTreatmentIdTask()
+        {
+            INetwork networkClient = NetworkClientFactory.GetNetworkClient();
+
+            try
+            {
+                TreatmentDto treatment = networkClient.GetTreatment(this.SearchId);
+
+                this.Treatment = treatment;
+            }
+            catch (Exception)
+            {
+            }
+        }
 
         public void LoadDoctorId()
         {
             /* AT
             this.LoadNodesTask( );
             */
-            Task.Run(() => this.LoadDoctorIdTask());
+            Task.Run(() => this.LoadDoctorIdTask()).Wait();
         }
 
         private void LoadDoctorIdTask()

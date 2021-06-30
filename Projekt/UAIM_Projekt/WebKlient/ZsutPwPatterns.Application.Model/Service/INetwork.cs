@@ -25,6 +25,7 @@ namespace ZsutPw.Patterns.Application.Model
         List<DoctorDto> GetAllDoctors();
         List<TreatmentDto> GetAllTreatments();
         DoctorDto GetDoctor(string id);
+        TreatmentDto GetTreatment(string id);
         PatientDto GetPatient(string id);
         AppointmentDto GetAppointment(string id);
         PatientDto UpdatePatient(string id, PatientDto patient);

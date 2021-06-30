@@ -24,6 +24,7 @@ namespace ZsutPw.Patterns.Application.Model
         void LoadAllDoctorsList();
         void LoadAllTreatmentsList();
         void LoadDoctorId();
+        void LoadTreatmentId();
         void LoadPatientId();
         void LoadAppointmentId();
         void LoadUpdatePatient();

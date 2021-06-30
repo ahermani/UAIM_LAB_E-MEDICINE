@@ -40,6 +40,7 @@ namespace ZsutPw.Patterns.Application.Controller
         public ICommand SearchDoctorIdCommand { get; private set; }
         public ICommand SearchAppointmentIdCommand { get; private set; }
         public ICommand SearchPatientIdCommand { get; private set; }
+        public ICommand SearchTreatmentIdCommand { get; private set; }
         public ICommand UpdatePatientCommand { get; private set; }
         public ICommand UpdateAppointmentCommand { get; private set; }
         public ICommand AddAppointmentCommand { get; private set; }
@@ -77,6 +78,10 @@ namespace ZsutPw.Patterns.Application.Controller
             this.Model.LoadAppointmentId();
         }
 
+        private void SearchTreatmentId()
+        {
+            this.Model.LoadTreatmentId();
+        }
         private void SearchPatientId()
         {
             this.Model.LoadPatientId();
@@ -97,7 +102,7 @@ namespace ZsutPw.Patterns.Application.Controller
 
         public async Task SearchAllDoctorsAsync()
         {
-            await Task.Run(() => this.SearchAllDoctors());
+            Task.Run(() => this.SearchAllDoctors()).Wait();
         }
         public async Task SearchAllTreatmentsAsync()
         {
@@ -113,7 +118,11 @@ namespace ZsutPw.Patterns.Application.Controller
         }
         public async Task SearchDoctorIdAsync()
         {
-            await Task.Run(() => this.SearchDoctorId());
+            Task.Run(() => this.SearchDoctorId()).Wait();
+        }
+        public async Task SearchTreatmentIdAsync()
+        {
+            await Task.Run(() => this.SearchTreatmentId());
         }
         public async Task SearchAppointmentIdAsync()
         {

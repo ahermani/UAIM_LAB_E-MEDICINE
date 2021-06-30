@@ -51,6 +51,14 @@ namespace ZsutPw.Patterns.Application.Model
 
             return treatments;
         }
+        public TreatmentDto GetTreatment(string id)
+        {
+            string callUri = "treatments/" + id;
+
+            TreatmentDto treatment = (this.serviceClient.CallWebService<TreatmentDto>(HttpMethod.Get, callUri));
+
+            return treatment;
+        }
 
         public DoctorDto GetDoctor(string id)
         {

@@ -21,7 +21,7 @@ namespace ZsutPw.Patterns.Application.Model
     using ZsutPwPatterns.Application.Model;
 
     public partial class Model : IData
-  {
+    {
         public List<DoctorDto> AllDoctorsList
         {
             get { return this.allDoctorsList; }
@@ -46,6 +46,17 @@ namespace ZsutPw.Patterns.Application.Model
         }
         private List<TreatmentDto> allTreatmentsList = new List<TreatmentDto>();
 
+        public List<TreatmentDto> SelectedAppointmentTreatments
+        {
+            get { return this.selectedAppointmentTreatments; }
+            private set
+            {
+                this.selectedAppointmentTreatments = value;
+
+                this.RaisePropertyChanged("SelectedAppointmentTreatments");
+            }
+        }
+        private List<TreatmentDto> selectedAppointmentTreatments = new List<TreatmentDto>();
 
         public List<AppointmentDto> DoctorAppointmentsList
         {
@@ -193,6 +204,14 @@ namespace ZsutPw.Patterns.Application.Model
             set
             {
                 this.selectedAppointment = value;
+                SelectedAppointmentTreatments = new List<TreatmentDto>();
+                LoadAllTreatmentsList();
+                foreach (Guid id in this.selectedAppointment.TreatmentIds)
+                {
+                    SearchId = id.ToString();
+                    LoadTreatmentId();
+                    SelectedAppointmentTreatments.Add(Treatment);
+                }
                 this.RaisePropertyChanged("SelectedAppointment");
             }
         }
@@ -220,5 +239,16 @@ namespace ZsutPw.Patterns.Application.Model
             }
         }
         private AppointmentDto editedAppointment;
+
+        public TreatmentDto Treatment
+        {
+            get { return this.treatment; }
+            set
+            {
+                this.treatment = value;
+                this.RaisePropertyChanged("Treatment");
+            }
+        }
+        private TreatmentDto treatment;
     }
 }

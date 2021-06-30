@@ -5,9 +5,6 @@
 <br>
 @if (model.SelectedAppointment != null)
 {
-    <RadzenLabel Text="Creator" Style="width: 160px" />
-    <RadzenTextBox Name="Creator" @bind-Value=@creator Style="width: 160px" ReadOnly="true" />
-    <br>
     <RadzenLabel Text="State" Style="width: 160px" />
     <RadzenTextBox Name="State" @bind-Value=@state Style="width: 160px" ReadOnly="true" />
     <br>
@@ -30,22 +27,31 @@
     <RadzenTextBox Name="Note" @bind-Value=@note Style="width: 160px" ReadOnly="true" />
     <br>
 }
+
 <RadzenMenu>
     <RadzenMenuItem Text="Edit" Icon="edit" Path="/patient/appointments/edit" />
     <RadzenMenuItem Text="Appointments" Icon="list" Path="/patient/appointments" />
 </RadzenMenu>
 
 @code {
-    String doctor, patient, treatments, note, appointmentDate, creationDate, creator, state;
+
+    String doctor, patient, treatments, note, appointmentDate, creationDate, state;
+
+    void prepareModel()
+    {
+        model.SearchId = model.SelectedAppointment.DoctorId.ToString();
+        controller.SearchDoctorIdAsync();
+    }
+
     override protected void OnInitialized()
     {
-        doctor = "";
-        patient = "";
-        creator = "";
+        prepareModel();
+        doctor = model.Doctor.Name + " " + model.Doctor.Surname;
+        patient = model.Patient.Name + " " + model.Patient.Surname;
         note = model.SelectedAppointment.Note.ToString();
         state = model.SelectedAppointment.State.ToString();
         creationDate = model.SelectedAppointment.CreationDate.ToString();
         appointmentDate = model.SelectedAppointment.AppointmentDate.ToString();
-        treatments = string.Join(", ", model.SelectedAppointment.TreatmentIds);
+        treatments = string.Join(", ", model.SelectedAppointmentTreatments.Select(x => x.Name));
     }
 }

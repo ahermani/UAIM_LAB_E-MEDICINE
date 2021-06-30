@@ -1,0 +1,70 @@
+﻿@page "/patient/appointments/edit"
+@inject IController controller
+@inject IModel model
+<h5>Modify your appointment</h5>
+<br>
+<br>
+@if (model.SelectedAppointment != null)
+{
+    <div class="row">
+        <div class="col-xl-6">
+            <RadzenLabel Text="State" Style="width: 160px" />
+            <RadzenDropDown Name="state" @bind-Value=@model.SelectedAppointment.State Data="@states" Style="width: 160px" /><br>
+            <RadzenLabel Text="Appointment Date" Style="width: 160px" />
+            <RadzenDatePicker Name="appointmentDate" @bind-Value=@model.SelectedAppointment.AppointmentDate Style="width: 160px" /><br>
+            <RadzenLabel Text="Doctor" Style="width: 160px" />
+            <RadzenDropDown Name="doctor" @bind-Value=@doctor Change=OnDoctorSelect Data="doctors" Style="width: 160px" /><br>
+            <RadzenLabel Text="Treatments" Style="width: 160px" />
+            <RadzenDropDown Name="treatments" Multiple="true" @bind-Value=@treatments Change=OnTreatmentSelect Data="treatmentsAll" Style="width: 160px" /><br>
+            <RadzenLabel Text="Note" Style="width: 160px" />
+            <RadzenTextBox Name="note" @bind-Value=@model.SelectedAppointment.Note Style="width: 160px" /><br>
+
+        </div>
+    </div>
+
+}
+
+<RadzenButton Icon="submit" Text="Submit" Click=@controller.UpdateAppointmentAsync Style="width: 160px" />
+
+<RadzenMenu>
+    <RadzenMenuItem Text="View" Icon="view" Path="/patient/appointments/view" />
+    <RadzenMenuItem Text="Appointments" Icon="list" Path="/patient/appointments" />
+</RadzenMenu>
+
+@code {
+    Array states = Enum.GetValues(typeof(State));
+    String doctor;
+    IEnumerable<String> treatments, treatmentsAll;
+    List<String> doctors;
+    void prepareModel()
+    {
+        model.SearchId = model.SelectedAppointment.DoctorId.ToString();
+        controller.SearchDoctorIdAsync();
+        controller.SearchAllDoctorsAsync();
+        controller.SearchAllTreatmentsAsync();
+    }
+
+    override protected void OnInitialized()
+    {
+        prepareModel();
+        doctor = model.Doctor.Name + " " + model.Doctor.Surname;
+        DoctorDto newDoctor = model.AllDoctorsList.Find(x => new String(x.Name + " " + x.Surname) == doctor);
+        model.SelectedAppointment.DoctorId = newDoctor.Id;
+        doctors = model.AllDoctorsList.Select(x => new String(x.Name + " " + x.Surname)).ToList<String>();
+        treatments = model.SelectedAppointmentTreatments.Select(x => x.Name).ToList<String>();
+        treatmentsAll = model.AllTreatmentsList.Select(x => x.Name).ToList<String>();
+    }
+
+    void OnDoctorSelect()
+    {
+        DoctorDto newDoctor = model.AllDoctorsList.Find(x => new String(x.Name + " " + x.Surname) == doctor);
+        model.SelectedAppointment.DoctorId = newDoctor.Id;
+        doctor = new String(newDoctor.Name + " " + newDoctor.Surname);
+    }
+
+    void OnTreatmentSelect()
+    {
+        List<TreatmentDto> appointmentTreatments = model.AllTreatmentsList.FindAll(x => treatments.Contains(x.Name));
+        model.SelectedAppointment.TreatmentIds = appointmentTreatments.Select(x => x.Id).ToList<Guid>();
+    }
+}

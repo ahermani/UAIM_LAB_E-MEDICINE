@@ -32,7 +32,7 @@ namespace ZsutPw.Patterns.Application.Controller
 
             this.SearchAllDoctorsCommand = new ControllerCommand(this.SearchAllDoctors);
             this.SearchAllTreatmentsCommand = new ControllerCommand(this.SearchAllTreatments);
-
+            this.SearchTreatmentIdCommand = new ControllerCommand(this.SearchTreatmentId);
             this.SearchDoctorIdCommand = new ControllerCommand(this.SearchDoctorId);
             this.SearchAppointmentIdCommand = new ControllerCommand(this.SearchAppointmentId);
             this.SearchPatientIdCommand = new ControllerCommand(this.SearchPatientId);

@@ -25,7 +25,7 @@ namespace ZsutPw.Patterns.Application.Model
     {
 #if DEBUG
       const string serviceHost = "localhost";
-      const int servicePort = 5005;
+      const int servicePort = 30005;
 
       return new NetworkClient( serviceHost, servicePort );
       /*
